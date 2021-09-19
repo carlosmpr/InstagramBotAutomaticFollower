@@ -12,7 +12,7 @@ user = ""
 username = ""
 password = ""
 url = "https://www.instagram.com/"
-chrome_driver_path = "path to web driver"
+chrome_driver_path = ""
 driver = webdriver.Chrome(executable_path=chrome_driver_path)
 
 driver.get(url)
@@ -33,5 +33,18 @@ time.sleep(3)
 
 ui.WebDriverWait(driver, 5).until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ".aOOlW.HoLwm"))).click()
 
-driver.find_element_by_xpath('/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[2]').click()
+search = driver.find_element_by_xpath( '/html/body/div[1]/section/nav/div[2]/div/div/div[2]/input')
+search.send_keys("keto.connect")
+time.sleep(5)
+
+driver.find_element_by_xpath( '/html/body/div[1]/section/nav/div[2]/div/div/div[2]/div[3]/div/div[2]/div/div[1]').click()
 time.sleep(3)
+
+driver.find_element_by_xpath( '/html/body/div[1]/section/main/div/header/section/ul/li[2]').click()
+time.sleep(3)
+
+all_follows_btm = driver.find_elements_by_css_selector("li button")
+for follow in all_follows_btm:
+    if follow.text == "Follow":
+        follow.click()
+        time.sleep(10)
